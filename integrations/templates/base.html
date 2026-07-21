@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Reputal{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+{% if session.get('restaurant_id') %}
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="{{ url_for('dashboard') }}">Rep<span>utal</span></a>
+    <nav>
+      <a href="{{ url_for('dashboard') }}">Reviews</a>
+      <a href="{{ url_for('settings') }}">Settings</a>
+      <a href="{{ url_for('logout') }}">Log out</a>
+    </nav>
+  </div>
+</header>
+{% endif %}
+
+<main class="page">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="flash-stack">
+        {% for message in messages %}
+          <div class="flash">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+</main>
+
+</body>
+</html>
